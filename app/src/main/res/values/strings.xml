@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Wheather_app</string>
+    <string name="app_name">Weather_app</string>
     <string name="weather_details">Weather Details</string>
 </resources>
