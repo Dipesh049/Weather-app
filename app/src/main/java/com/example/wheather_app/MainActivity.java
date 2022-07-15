@@ -1,8 +1,15 @@
 package com.example.wheather_app;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     TextView cityNameTextview,temp,wind,visibility,humidity,uv,air_pressure,temprature,weather_status;
     ImageView search;
     LottieAnimationView cloud_icon;
+    SharedPreferences sharedPreferences;
+
+
+
 
 
     @Override
@@ -47,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         // cloud animation
 //        cloud_icon.setAnimation(R.raw.cloudstorm);
 //        animate(cloud_icon);
+        //shared preferences to save last data
+         String City;
+         sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
+         City = sharedPreferences.getString("City","Delhi");
+         getWeatherData(City);
 
 
 
@@ -54,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // to save data in SharedPreferences.
+                sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("City",cityname.getText().toString().trim());
+                editor.apply();
+                //call api
                 getWeatherData(cityname.getText().toString().trim());
             }
         });
@@ -77,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
                        cloud_icon.setAnimation(R.raw.cloudicon);
                    }else if(weather.equals("Light rain")){
                        cloud_icon.setAnimation(R.raw.lightrain);
+                   }else if(weather.equals("Mist")){
+                       cloud_icon.setAnimation(R.raw.mist);
+                   }else if(weather.equals("Mostly Sunny")){
+                       cloud_icon.setAnimation(R.raw.mostlysunny);
+                   }else{
+                       cloud_icon.setAnimation(R.raw.def);
                    }
                    animate(cloud_icon);
 
@@ -104,9 +132,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //to animate the Lottiefiles
     public void animate (View view){
         cloud_icon.playAnimation();
         cloud_icon.setRepeatCount(10);
     }
+
+
+
+
+
 
 }
