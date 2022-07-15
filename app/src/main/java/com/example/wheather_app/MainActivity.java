@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     ApiInterface apiInterface;
     EditText cityname;
-    TextView cityNameTextview,temp,wind,visibility,humidity,uv,air_pressure;
+    TextView cityNameTextview,temp,wind,visibility,humidity,uv,air_pressure,temprature,weather_status;
     ImageView search;
     LottieAnimationView cloud_icon;
 
@@ -39,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         humidity = findViewById(R.id.humidity);
         uv = findViewById(R.id.uv);
         air_pressure = findViewById(R.id.air_pressure);
+        temprature = findViewById(R.id.temprature);
+        weather_status = findViewById(R.id.weather_status);
         search = findViewById(R.id.search_button);
         cloud_icon = findViewById(R.id.cloud_icon);
 
         // cloud animation
-        cloud_icon.setAnimation(R.raw.cloudstorm);
-        animate(cloud_icon);
+//        cloud_icon.setAnimation(R.raw.cloudstorm);
+//        animate(cloud_icon);
 
 
 
@@ -70,10 +72,21 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.e("response", "onResponse: " + response.body());
                     cityNameTextview.setText(response.body().getLocation().getName());
 
+                   String weather = response.body().getCurrent().getCondition().getText();
+                   if(weather.equals("Partly cloudy")){
+                       cloud_icon.setAnimation(R.raw.cloudicon);
+                   }else if(weather.equals("Light rain")){
+                       cloud_icon.setAnimation(R.raw.lightrain);
+                   }
+                   animate(cloud_icon);
 
+
+
+                    temprature.setText(response.body().getCurrent().getTempC() + "°");
+                    weather_status.setText(response.body().getCurrent().getCondition().getText());
 //                    Glide.with(MainActivity.this).load(response.body().getCurrent().getCondition().getIcon()).into(cloud_icon);
-                    Glide.with(MainActivity.this).load(response.body().getCurrent().getCondition().getIcon()).into(cloud_icon);
                     temp.setText(response.body().getCurrent().getTempC() + "°C");
+
                     wind.setText(response.body().getCurrent().getWindKph() + " Km/h");
                     visibility.setText(response.body().getCurrent().getVisKm() + " Km");
                     humidity.setText(response.body().getCurrent().getHumidity()+"%");

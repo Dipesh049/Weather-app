@@ -40,8 +40,8 @@ public class Current {
     public void setTempC(int tempC) {
         this.tempC = tempC;
     }
-    public float getTempC() {
-        return tempC;
+    public int getTempC() {
+        return (int)tempC;
     }
 
     
