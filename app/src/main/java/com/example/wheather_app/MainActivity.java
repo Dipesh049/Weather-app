@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     ApiInterface apiInterface;
     EditText cityname;
-    TextView cityNameTextview,temp,wind,visibility,humidity,uv,air_pressure,temprature,weather_status;
+    TextView cityNameTextview,temp,wind,visibility,humidity,uv,air_pressure,temprature,weather_status,wind_dir;
     ImageView search;
     LottieAnimationView cloud_icon;
     SharedPreferences sharedPreferences;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         air_pressure = findViewById(R.id.air_pressure);
         temprature = findViewById(R.id.temprature);
         weather_status = findViewById(R.id.weather_status);
+        wind_dir = findViewById(R.id.wind_dir);
         search = findViewById(R.id.search_button);
         cloud_icon = findViewById(R.id.cloud_icon);
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         //shared preferences to save last data
          String City;
          sharedPreferences = getSharedPreferences("sharedPrefs",MODE_PRIVATE);
-         City = sharedPreferences.getString("City","Delhi");
+         City = sharedPreferences.getString("City","Ahmedabad");
          getWeatherData(City);
 
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                    animate(cloud_icon);
 
 
-
+                    wind_dir.setText(response.body().getCurrent().getWind_dir());
                     temprature.setText(response.body().getCurrent().getTempC() + "°");
                     weather_status.setText(response.body().getCurrent().getCondition().getText());
 //                    Glide.with(MainActivity.this).load(response.body().getCurrent().getCondition().getIcon()).into(cloud_icon);

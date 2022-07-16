@@ -17,6 +17,9 @@ public class Current {
    @SerializedName("wind_kph")
    double windKph;
 
+   @SerializedName("wind_dir")
+   String wind_dir;
+
 
    @SerializedName("pressure_mb")
    float pressureMb;
@@ -51,7 +54,9 @@ public class Current {
     public Condition getCondition() {
         return condition;
     }
-    
+
+    public void setWind_dir(String wind_dir){this.wind_dir = wind_dir;}
+    public String getWind_dir(){return wind_dir;}
 
     public void setWindKph(double windKph) {
         this.windKph = windKph;
