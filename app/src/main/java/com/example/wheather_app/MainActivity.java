@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         search = findViewById(R.id.search_button);
         cloud_icon = findViewById(R.id.cloud_icon);
 
+
+        //check permission
+//        askForLocationPermission();
+
+
         // cloud animation
 //        cloud_icon.setAnimation(R.raw.cloudstorm);
 //        animate(cloud_icon);
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void getWeatherData(String cityname) {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -139,6 +146,42 @@ public class MainActivity extends AppCompatActivity {
         cloud_icon.playAnimation();
         cloud_icon.setRepeatCount(10);
     }
+
+//    private void askForLocationPermission() {
+//       if(ContextCompat.checkSelfPermission(MainActivity.this,
+//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//             if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+//                     Manifest.permission.ACCESS_FINE_LOCATION)) {
+//                 ActivityCompat.requestPermissions(MainActivity.this,
+//                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+//             }else{
+//                 ActivityCompat.requestPermissions(MainActivity.this,
+//                 new String[] {Manifest.permission.ACCESS_FINE_LOCATION},1);
+//
+//             }
+//        }
+//
+//
+//    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                           int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case 1: {
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    if (ContextCompat.checkSelfPermission(MainActivity.this,
+//                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//
+//                        Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+//                }
+//                return;
+//            }
+//        }
+//    }
 
 
 
